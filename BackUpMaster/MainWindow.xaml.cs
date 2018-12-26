@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace BackUpMaster
 {
@@ -32,6 +33,11 @@ namespace BackUpMaster
         private void Window_Initialized(object sender, EventArgs e)
         {
             InitUILables();
+            drives = DriveInfo.GetDrives();
+            foreach (DriveInfo disk in drives)
+            {
+                DiskComboBox.Items.Add(disk.Name);
+            }
         }
 
         private void FolderChooseButton_Click(object sender, RoutedEventArgs e)
@@ -130,14 +136,27 @@ namespace BackUpMaster
             };
         }
 
+        private void InitModeComboBox()
+        {
+
+        }
+
         //
         // Data
         //
 
+
+        // UI Labels
         private static UILanguage _language = UILanguage.English;
         private Dictionary<Label, UILabelPair> _UILabels;
         private Dictionary<Label, UILabelPair> _UIDataLabels;
         private Dictionary<Button, UILabelPair> _UIButtonLabels;
+
+        // File system INFO
+        DriveInfo[] drives;
+
+        // Other
+        enum WorkMode { ALL, DOCS }
     }
 
     public enum UILanguage { Russian, English }
