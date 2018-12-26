@@ -1,0 +1,29 @@
+﻿<Window x:Class="BackUpMaster.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackUpMaster"
+        mc:Ignorable="d"
+        Title="Back-Up Master" Height="350" Width="525" ResizeMode="CanMinimize">
+    <Grid>
+        <ComboBox x:Name="DiskComboBox" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="167"/>
+        <Label Content="Choose your disk to back-up:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="167" FontFamily="Segoe UI Light"/>
+        <DatePicker HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="167"/>
+        <Label Content="Choose date:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="167" ToolTip="The program will copy all files to the back-up folder which was edited no sooner than picked date."/>
+        <Label Content="Choose what files to back-up:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="167"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="167"/>
+        <Label Content="Choose the back-up folder:" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Width="167"/>
+        <Label Content="No folder chosen." HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Width="167"/>
+        <Button Content="Choose" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Width="167"/>
+        <Button Content="RU" HorizontalAlignment="Left" Margin="489,248,0,0" VerticalAlignment="Top" Width="20"/>
+        <Button Content="EN" HorizontalAlignment="Left" Margin="469,248,0,0" VerticalAlignment="Top" Width="20"/>
+        <Label Content="Space needed: none" HorizontalAlignment="Left" Margin="248,23,0,0" VerticalAlignment="Top" Width="241"/>
+        <Label Content="Files to back-up: none" HorizontalAlignment="Left" Margin="248,75,0,0" VerticalAlignment="Top" Width="241"/>
+        <Label Content="Free storage space: none" HorizontalAlignment="Left" Margin="248,49,0,0" VerticalAlignment="Top" Width="241"/>
+        <Button Content="Start Back-Up" HorizontalAlignment="Left" Margin="225,248,0,0" VerticalAlignment="Top" Width="229"/>
+        <ProgressBar HorizontalAlignment="Left" Height="28" Margin="10,283,0,0" VerticalAlignment="Top" Width="499"/>
+        <Button Content="Options" HorizontalAlignment="Left" Margin="248,106,0,0" VerticalAlignment="Top" Width="106"/>
+
+    </Grid>
+</Window>
