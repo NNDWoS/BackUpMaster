@@ -5,25 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackUpMaster"
         mc:Ignorable="d"
-        Title="Back-Up Master" Height="350" Width="525" ResizeMode="CanMinimize">
+        Title="Back-Up Master" Height="350" Width="525" ResizeMode="CanMinimize" Initialized="Window_Initialized">
     <Grid>
-        <ComboBox x:Name="DiskComboBox" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="167"/>
-        <Label Content="Choose your disk to back-up:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="167" FontFamily="Segoe UI Light"/>
-        <DatePicker HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="167"/>
-        <Label Content="Choose date:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="167" ToolTip="The program will copy all files to the back-up folder which was edited no sooner than picked date."/>
-        <Label Content="Choose what files to back-up:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="167"/>
-        <ComboBox HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="167"/>
-        <Label Content="Choose the back-up folder:" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Width="167"/>
-        <Label Content="No folder chosen." HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Width="167"/>
-        <Button Content="Choose" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Width="167"/>
-        <Button Content="RU" HorizontalAlignment="Left" Margin="489,248,0,0" VerticalAlignment="Top" Width="20"/>
-        <Button Content="EN" HorizontalAlignment="Left" Margin="469,248,0,0" VerticalAlignment="Top" Width="20"/>
-        <Label Content="Space needed: none" HorizontalAlignment="Left" Margin="248,23,0,0" VerticalAlignment="Top" Width="241"/>
-        <Label Content="Files to back-up: none" HorizontalAlignment="Left" Margin="248,75,0,0" VerticalAlignment="Top" Width="241"/>
-        <Label Content="Free storage space: none" HorizontalAlignment="Left" Margin="248,49,0,0" VerticalAlignment="Top" Width="241"/>
-        <Button Content="Start Back-Up" HorizontalAlignment="Left" Margin="225,248,0,0" VerticalAlignment="Top" Width="229"/>
-        <ProgressBar HorizontalAlignment="Left" Height="28" Margin="10,283,0,0" VerticalAlignment="Top" Width="499"/>
-        <Button Content="Options" HorizontalAlignment="Left" Margin="248,106,0,0" VerticalAlignment="Top" Width="106"/>
+        <ComboBox x:Name="DiskComboBox" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="245"/>
+        <Label x:Name="DiskUILabel" Content="Choose your disk to back-up:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="245" FontFamily="Segoe UI Light"/>
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="245" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        <Label x:Name="DateUILabel" Content="Choose date:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="245" ToolTip="The program will copy all files to the back-up folder which was edited no sooner than picked date."/>
+        <Label x:Name="ModeUILabel" Content="Choose what files to back-up:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="245"/>
+        <ComboBox x:Name="ModeComboBox" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="245"/>
+        <Label x:Name="FolderUILabel" Content="Choose the back-up folder:" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Width="245"/>
+        <Label x:Name="FolderDisplayLabel" Content="No folder chosen." HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Width="245"/>
+        <Button x:Name="FolderChooseButton" Content="Choose" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Width="245" Click="FolderChooseButton_Click"/>
+        <Button x:Name="RussianButton" Content="RU" HorizontalAlignment="Left" Margin="489,248,0,0" VerticalAlignment="Top" Width="20" Click="RussianButton_Click"/>
+        <Button x:Name="EnglishButton" Content="EN" HorizontalAlignment="Left" Margin="469,248,0,0" VerticalAlignment="Top" Width="20" Click="EnglishButton_Click"/>
+        <Label x:Name="SpaceLabel" Content="Space needed: " HorizontalAlignment="Left" Margin="279,11,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label x:Name="FilesNumbLabel" Content="Files to back-up:" HorizontalAlignment="Left" Margin="279,63,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label x:Name="StorageLabel" Content="Free storage space: " HorizontalAlignment="Left" Margin="279,37,0,0" VerticalAlignment="Top" Width="142"/>
+        <Button x:Name="StartButton" Content="Start Back-Up" HorizontalAlignment="Left" Margin="279,248,0,0" VerticalAlignment="Top" Width="175" Click="StartButton_Click"/>
+        <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Left" Height="28" Margin="10,283,0,0" VerticalAlignment="Top" Width="499"/>
+        <Button x:Name="OptionsButton" Content="Options" HorizontalAlignment="Left" Margin="279,94,0,0" VerticalAlignment="Top" Width="175" Height="29" Click="OptionsButton_Click"/>
+        <Label x:Name="SpaceDigitLabel" Content="none" HorizontalAlignment="Left" Margin="426,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.184,-0.077" Width="63"/>
+        <Label x:Name="StorageDigitLabel" Content="none" HorizontalAlignment="Left" Margin="426,37,0,0" VerticalAlignment="Top" Width="63"/>
+        <Label x:Name="FilesNumbsDigitLabel" Content="none" HorizontalAlignment="Left" Margin="426,63,0,0" VerticalAlignment="Top" Width="83"/>
 
     </Grid>
 </Window>

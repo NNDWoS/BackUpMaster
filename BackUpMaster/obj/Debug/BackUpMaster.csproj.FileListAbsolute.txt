@@ -1,0 +1,17 @@
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.csprojResolveAssemblyReference.cache
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\MainWindow.g.cs
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\OptionsWindow.g.cs
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\App.g.cs
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster_MarkupCompile.cache
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster_MarkupCompile.lref
+F:\C# Projects\BackUpMaster\BackUpMaster\bin\Debug\BackUpMaster.exe.config
+F:\C# Projects\BackUpMaster\BackUpMaster\bin\Debug\BackUpMaster.exe
+F:\C# Projects\BackUpMaster\BackUpMaster\bin\Debug\BackUpMaster.pdb
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\MainWindow.baml
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\OptionsWindow.baml
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.g.resources
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.Properties.Resources.resources
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.csproj.GenerateResource.Cache
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.csproj.CoreCompileInputs.cache
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.exe
+F:\C# Projects\BackUpMaster\BackUpMaster\obj\Debug\BackUpMaster.pdb
