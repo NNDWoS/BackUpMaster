@@ -128,9 +128,6 @@ namespace BackUpMaster
                 }
             }
 
-
-
-
             switch (_modeIndex)
             {
                 case 0:
@@ -158,9 +155,13 @@ namespace BackUpMaster
             DirectoryInfo saves = new DirectoryInfo(_pathToSave);
             if (!saves.Exists)
                 throw new ArgumentNullException("РАЗРАБ ДОЛБАЕБ");
-            
 
+            saves = saves.Root;
+
+
+            StorageDigitLabel.Content = Convert.ToString(new DriveInfo(saves.Root.Name).AvailableFreeSpace);
             SpaceDigitLabel.Content = Convert.ToString(space);
+            FilesNumbsDigitLabel.Content = Convert.ToString(_filesToBackUp.Count);
             
 
         }

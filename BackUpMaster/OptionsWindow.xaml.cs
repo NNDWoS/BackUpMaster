@@ -26,6 +26,7 @@ namespace BackUpMaster
 
         public OptionsWindow(bool deleteAllFilesFlag, bool CreateNewFolderFlag)
         {
+            InitializeComponent();
             RewriteCheckBox.IsChecked = deleteAllFilesFlag;
             NewFolderCheckBox.IsChecked = CreateNewFolderFlag;
             FolderNameTextBox.IsEnabled = CreateNewFolderFlag;
@@ -34,15 +35,29 @@ namespace BackUpMaster
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (NewFolderCheckBox.IsChecked.HasValue)
+            {
                 MainWindow.CreateNewFolderFlag = NewFolderCheckBox.IsChecked.Value;
+                if (NewFolderCheckBox.IsChecked.Value)
+                    MainWindow.FolderName = FolderNameTextBox.Text;
+            } 
             if (RewriteCheckBox.IsChecked.HasValue)
                 MainWindow.deleteAllFilesFlag = RewriteCheckBox.IsChecked.Value;
-            MainWindow.FolderName = FolderNameTextBox.Text;
+            
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void NewFolderCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            FolderNameTextBox.IsEnabled = NewFolderCheckBox.IsChecked.Value;
+        }
+
+        private void NewFolderCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FolderNameTextBox.IsEnabled = NewFolderCheckBox.IsChecked.Value;
         }
     }
 }
