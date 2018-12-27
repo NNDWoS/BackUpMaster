@@ -128,27 +128,37 @@ namespace BackUpMaster
                 }
             }
 
+            void FindAllFiles(DirectoryInfo directory, string filter)
+            {
+                if (directory.GetDirectories().Length != 0)
+                {
+                    foreach (DirectoryInfo d in directory.GetDirectories())
+                    {
+                        FindAllFiles(d, filter);
+                    }
+                }
+
+                try
+                {
+                    foreach (FileInfo file in directory.GetFiles(filter, SearchOption.TopDirectoryOnly))
+                    {
+                        AddFile(file);
+                    }
+
+                }
+                catch (UnauthorizedAccessException) {  }
+
+            }
+
             switch (_modeIndex)
             {
                 case 0:
-                    foreach(FileInfo file in dir.GetFiles())
-                    {
-                        AddFile(file);
-                    }
+                    FindAllFiles(dir, "*");
                     break;
                 case 1:
-                    foreach(FileInfo file in dir.GetFiles("*.pdf", SearchOption.AllDirectories))
-                    {
-                        AddFile(file);
-                    }
-                    foreach(FileInfo file in dir.GetFiles("*.doc*", SearchOption.AllDirectories))
-                    {
-                        AddFile(file);
-                    }
-                    foreach(FileInfo file in dir.GetFiles("*.odt", SearchOption.AllDirectories))
-                    {
-                        AddFile(file);
-                    }
+                    FindAllFiles(dir, "*.pdf");
+                    FindAllFiles(dir, "*.doc*");
+                    FindAllFiles(dir, "*.odt");
                     break;
             }
 
