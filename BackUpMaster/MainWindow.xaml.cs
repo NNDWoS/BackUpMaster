@@ -80,27 +80,90 @@ namespace BackUpMaster
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OptionsWindow optionsWindow = new OptionsWindow(deleteAllFilesFlag, CreateNewFolderFlag);
+            optionsWindow.ShowDialog();
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (DatePicker.SelectedDate.HasValue)
+                _date = DatePicker.SelectedDate.Value;
+            StatCheck();
         }
 
         private void DiskComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _driveIndex = DiskComboBox.SelectedIndex;
+            StatCheck();
         }
 
         private void ModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _modeIndex = ModeComboBox.SelectedIndex;
+            StatCheck();
         }
 
         //
         // Custom private methods
         //
+
+        private void StatCheck()
+        {
+            if (_date != DateTime.MaxValue && _pathToSave != String.Empty && _driveIndex != -1 && _modeIndex != -1)
+                AddStatistics();
+        }
+
+        private void AddStatistics()
+        {
+            _filesToBackUp = new List<FileInfo>();
+            DirectoryInfo dir = _drives[_driveIndex].RootDirectory;
+            long space = 0;
+
+            void AddFile(FileInfo file)
+            {
+                if (file.LastWriteTime > _date)
+                {
+                    _filesToBackUp.Add(file);
+                    space += file.Length;
+                }
+            }
+
+
+
+
+            switch (_modeIndex)
+            {
+                case 0:
+                    foreach(FileInfo file in dir.GetFiles())
+                    {
+                        AddFile(file);
+                    }
+                    break;
+                case 1:
+                    foreach(FileInfo file in dir.GetFiles("*.pdf", SearchOption.AllDirectories))
+                    {
+                        AddFile(file);
+                    }
+                    foreach(FileInfo file in dir.GetFiles("*.doc*", SearchOption.AllDirectories))
+                    {
+                        AddFile(file);
+                    }
+                    foreach(FileInfo file in dir.GetFiles("*.odt", SearchOption.AllDirectories))
+                    {
+                        AddFile(file);
+                    }
+                    break;
+            }
+
+            DirectoryInfo saves = new DirectoryInfo(_pathToSave);
+            if (!saves.Exists)
+                throw new ArgumentNullException("РАЗРАБ ДОЛБАЕБ");
+            
+
+            SpaceDigitLabel.Content = Convert.ToString(space);
+            
+
+        }
 
         private void UpdateLabels()
         {
@@ -175,12 +238,16 @@ namespace BackUpMaster
 
         private string _pathToSave = String.Empty;
 
+        private DateTime _date = DateTime.MaxValue;
+
+        private List<FileInfo> _filesToBackUp = null;
+
         // Other
         private enum WorkMode { ALL, DOCS }
         public static bool deleteAllFilesFlag = false;
         public static bool CreateNewFolderFlag = false;
         public static string FolderName = String.Empty;
-
+        
     }
 
     public enum UILanguage { Russian, English }
