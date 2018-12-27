@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 
+
 namespace BackUpMaster
 {
     /// <summary>
@@ -33,16 +34,25 @@ namespace BackUpMaster
         private void Window_Initialized(object sender, EventArgs e)
         {
             InitUILables();
-            drives = DriveInfo.GetDrives();
-            foreach (DriveInfo disk in drives)
+            _drives = DriveInfo.GetDrives();
+            foreach (DriveInfo disk in _drives)
             {
                 DiskComboBox.Items.Add(disk.Name);
             }
+            ModeComboBox.Items.Add(WorkMode.ALL);
+            ModeComboBox.Items.Add(WorkMode.DOCS);
         }
 
         private void FolderChooseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    _pathToSave = dialog.SelectedPath;
+                    FolderDisplayLabel.Content = dialog.SelectedPath;
+                }
+            }
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -76,6 +86,16 @@ namespace BackUpMaster
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void DiskComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _driveIndex = DiskComboBox.SelectedIndex;
+        }
+
+        private void ModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _modeIndex = ModeComboBox.SelectedIndex;
         }
 
         //
@@ -153,10 +173,16 @@ namespace BackUpMaster
         private Dictionary<Button, UILabelPair> _UIButtonLabels;
 
         // File system INFO
-        DriveInfo[] drives;
+        private DriveInfo[] _drives;
+        private int _driveIndex;
+
+        private int _modeIndex;
+
+        private string _pathToSave;
 
         // Other
-        enum WorkMode { ALL, DOCS }
+        private enum WorkMode { ALL, DOCS }
+
     }
 
     public enum UILanguage { Russian, English }

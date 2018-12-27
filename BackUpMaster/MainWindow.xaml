@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Back-Up Master" Height="350" Width="525" ResizeMode="CanMinimize" Initialized="Window_Initialized">
     <Grid>
-        <ComboBox x:Name="DiskComboBox" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="245"/>
+        <ComboBox x:Name="DiskComboBox" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="245" SelectionChanged="DiskComboBox_SelectionChanged"/>
         <Label x:Name="DiskUILabel" Content="Choose your disk to back-up:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="245" FontFamily="Segoe UI Light"/>
         <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="245" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
         <Label x:Name="DateUILabel" Content="Choose date:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="245" ToolTip="The program will copy all files to the back-up folder which was edited no sooner than picked date."/>
         <Label x:Name="ModeUILabel" Content="Choose what files to back-up:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="245"/>
-        <ComboBox x:Name="ModeComboBox" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="245"/>
+        <ComboBox x:Name="ModeComboBox" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="245" SelectionChanged="ModeComboBox_SelectionChanged"/>
         <Label x:Name="FolderUILabel" Content="Choose the back-up folder:" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Width="245"/>
         <Label x:Name="FolderDisplayLabel" Content="No folder chosen." HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Width="245"/>
         <Button x:Name="FolderChooseButton" Content="Choose" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Width="245" Click="FolderChooseButton_Click"/>
