@@ -156,11 +156,6 @@ namespace BackUpMaster
             };
         }
 
-        private void InitModeComboBox()
-        {
-
-        }
-
         //
         // Data
         //
@@ -174,14 +169,17 @@ namespace BackUpMaster
 
         // File system INFO
         private DriveInfo[] _drives;
-        private int _driveIndex;
+        private int _driveIndex = -1;
 
-        private int _modeIndex;
+        private int _modeIndex = -1;
 
-        private string _pathToSave;
+        private string _pathToSave = String.Empty;
 
         // Other
         private enum WorkMode { ALL, DOCS }
+        public static bool deleteAllFilesFlag = false;
+        public static bool CreateNewFolderFlag = false;
+        public static string FolderName = String.Empty;
 
     }
 
