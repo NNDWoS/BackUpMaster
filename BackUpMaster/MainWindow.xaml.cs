@@ -113,11 +113,12 @@ namespace BackUpMaster
                 AddStatistics();
         }
 
+
         private void AddStatistics()
         {
             _filesToBackUp = new List<FileInfo>();
             DirectoryInfo dir = _drives[_driveIndex].RootDirectory;
-            long space = 0;
+            double space = 0;
 
             void AddFile(FileInfo file)
             {
@@ -130,16 +131,18 @@ namespace BackUpMaster
 
             void FindAllFiles(DirectoryInfo directory, string filter)
             {
-                if (directory.GetDirectories().Length != 0)
-                {
-                    foreach (DirectoryInfo d in directory.GetDirectories())
-                    {
-                        FindAllFiles(d, filter);
-                    }
-                }
-
                 try
                 {
+                    if (Directory.GetDirectories(directory.FullName).Length != 0)
+                    {
+                        foreach (string d in Directory.GetDirectories(directory.FullName))
+                        {
+                            DirectoryInfo t = new DirectoryInfo(d);
+                            FindAllFiles(t, filter);
+                        }
+                    }
+
+                
                     foreach (FileInfo file in directory.GetFiles(filter, SearchOption.TopDirectoryOnly))
                     {
                         AddFile(file);
@@ -168,9 +171,23 @@ namespace BackUpMaster
 
             saves = saves.Root;
 
+            
 
-            StorageDigitLabel.Content = Convert.ToString(new DriveInfo(saves.Root.Name).AvailableFreeSpace);
-            SpaceDigitLabel.Content = Convert.ToString(space);
+            
+            string MakeLessDigits(double data)
+            {
+                string[] size = { "B", "KB", "MB", "GB", "TB" };
+                int volume = 0;
+                if (data > 1024.0 && volume < size.Length)
+                {
+                    data /= 1024.0;
+                    ++volume;
+                }
+                return $"{data:f1} {size[volume]}";
+            }
+
+            StorageDigitLabel.Content = MakeLessDigits(new DriveInfo(saves.Root.Name).AvailableFreeSpace);
+            SpaceDigitLabel.Content = MakeLessDigits(space);
             FilesNumbsDigitLabel.Content = Convert.ToString(_filesToBackUp.Count);
             
 
