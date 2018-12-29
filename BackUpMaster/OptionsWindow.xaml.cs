@@ -27,6 +27,7 @@ namespace BackUpMaster
         public OptionsWindow(bool deleteAllFilesFlag, bool CreateNewFolderFlag)
         {
             InitializeComponent();
+            RewriteCheckBox.IsEnabled = false; // temporary
             RewriteCheckBox.IsChecked = deleteAllFilesFlag;
             NewFolderCheckBox.IsChecked = CreateNewFolderFlag;
             FolderNameTextBox.IsEnabled = CreateNewFolderFlag;

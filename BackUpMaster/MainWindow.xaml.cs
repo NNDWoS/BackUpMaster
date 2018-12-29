@@ -39,8 +39,11 @@ namespace BackUpMaster
             {
                 DiskComboBox.Items.Add(disk.Name);
             }
-            ModeComboBox.Items.Add(WorkMode.ALL);
+            ModeComboBox.Items.Add(WorkMode.ALL_Long);
             ModeComboBox.Items.Add(WorkMode.DOCS);
+            ModeComboBox.Items.Add(WorkMode.IMAGES);
+            ModeComboBox.Items.Add(WorkMode.MUSIC);
+            ModeComboBox.Items.Add(WorkMode.GP_Files);
         }
 
         private void FolderChooseButton_Click(object sender, RoutedEventArgs e)
@@ -53,11 +56,38 @@ namespace BackUpMaster
                     FolderDisplayLabel.Content = dialog.SelectedPath;
                 }
             }
+            StatCheck();
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_filesToBackUp.Count == 0)
+            {
+                MessageBox.Show("No files to backup.", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
+            if (CreateNewFolderFlag)
+                Directory.CreateDirectory(_pathToSave + "\\" + FolderName);
+
+            ProgressBar.Maximum = _filesToBackUp.Count;
+
+            void DoWork()
+            {
+                foreach (FileInfo file in _filesToBackUp)
+                {
+                    File.Copy(file.FullName, _pathToSave + "\\" + ((CreateNewFolderFlag) ? $"{FolderName}\\" : "") + file.Name);
+                    ++ProgressBar.Value;
+                }
+            }
+
+            Task task = new Task(() => DoWork());
+            task.Start();
+            Task.WaitAll(task);
+            
+
+            MessageBox.Show("Backup Done!", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            ProgressBar.Value = 0;
         }
 
         private void EnglishButton_Click(object sender, RoutedEventArgs e)
@@ -107,6 +137,11 @@ namespace BackUpMaster
         // Custom private methods
         //
 
+        private void MakeDefaultState()
+        {
+            // After Backing up
+        }
+
         private void StatCheck()
         {
             if (_date != DateTime.MaxValue && _pathToSave != String.Empty && _driveIndex != -1 && _modeIndex != -1)
@@ -116,6 +151,7 @@ namespace BackUpMaster
 
         private void AddStatistics()
         {
+            MessageBox.Show("Program start preparing statistics for backup. Please wait a little. Press \"OK\" to continue. ");
             _filesToBackUp = new List<FileInfo>();
             DirectoryInfo dir = _drives[_driveIndex].RootDirectory;
             double space = 0;
@@ -159,9 +195,47 @@ namespace BackUpMaster
                     FindAllFiles(dir, "*");
                     break;
                 case 1:
-                    FindAllFiles(dir, "*.pdf");
-                    FindAllFiles(dir, "*.doc*");
-                    FindAllFiles(dir, "*.odt");
+                    Task[] tasks = new Task[4];
+                    tasks[0] = new Task(() => FindAllFiles(dir, "*.pdf"));
+                    tasks[1] =  new Task(() => FindAllFiles(dir, "*.doc*"));
+                    tasks[2] = new Task(() => FindAllFiles(dir, "*.odt"));
+                    tasks[3] = new Task(() => FindAllFiles(dir, "*.txt"));
+                    for (int i = 0; i < tasks.Length; ++i)
+                        tasks[i].Start();
+                    Task.WaitAll(tasks);
+                    break;
+                case 2:
+                    tasks = new Task[4];
+                    tasks[0] = new Task(() => FindAllFiles(dir, "*.jpg"));
+                    tasks[1] = new Task(() => FindAllFiles(dir, "*.bmp"));
+                    tasks[2] = new Task(() => FindAllFiles(dir, "*.jpeg"));
+                    tasks[3] = new Task(() => FindAllFiles(dir, "*.tiff"));
+                    for (int i = 0; i < tasks.Length; ++i)
+                        tasks[i].Start();
+                    Task.WaitAll(tasks);
+                    break;
+                case 3:
+                    tasks = new Task[3];
+                    tasks[0] = new Task(() => FindAllFiles(dir, "*.mp3"));
+                    tasks[1] = new Task(() => FindAllFiles(dir, "*.wav"));
+                    tasks[2] = new Task(() => FindAllFiles(dir, "*.flac"));
+                    for (int i = 0; i < tasks.Length; ++i)
+                        tasks[i].Start();
+                    Task.WaitAll(tasks);
+                    break;
+                case 4:
+                    tasks = new Task[5];
+                    tasks[0] = new Task(() => FindAllFiles(dir, "*.gp"));
+                    tasks[1] = new Task(() => FindAllFiles(dir, "*.gp6"));
+                    tasks[2] = new Task(() => FindAllFiles(dir, "*.gp5"));
+                    tasks[3] = new Task(() => FindAllFiles(dir, "*.gp4"));
+                    tasks[4] = new Task(() => FindAllFiles(dir, "*.gp3"));
+                    for (int i = 0; i < tasks.Length; ++i)
+                        tasks[i].Start();
+                    Task.WaitAll(tasks);
+                    break;
+                default:
+                    MessageBox.Show("Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
 
@@ -178,7 +252,7 @@ namespace BackUpMaster
             {
                 string[] size = { "B", "KB", "MB", "GB", "TB" };
                 int volume = 0;
-                if (data > 1024.0 && volume < size.Length)
+                while (data > 1024.0 && volume < size.Length)
                 {
                     data /= 1024.0;
                     ++volume;
@@ -271,7 +345,7 @@ namespace BackUpMaster
         private List<FileInfo> _filesToBackUp = null;
 
         // Other
-        private enum WorkMode { ALL, DOCS }
+        private enum WorkMode { ALL_Long, DOCS, IMAGES, MUSIC, GP_Files }
         public static bool deleteAllFilesFlag = false;
         public static bool CreateNewFolderFlag = false;
         public static string FolderName = String.Empty;

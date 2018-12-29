@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackUpMaster"
         mc:Ignorable="d"
-        Title="Back-Up Master" Height="350" Width="525" ResizeMode="CanMinimize" Initialized="Window_Initialized">
+        Title="Back-Up Master" Height="362" Width="537" ResizeMode="CanMinimize" Initialized="Window_Initialized">
     <Grid>
         <ComboBox x:Name="DiskComboBox" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="245" SelectionChanged="DiskComboBox_SelectionChanged"/>
         <Label x:Name="DiskUILabel" Content="Choose your disk to back-up:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="245" FontFamily="Segoe UI Light"/>
